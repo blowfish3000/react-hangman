@@ -11,7 +11,7 @@ export default function AssemblyEndgame() {
     // State values
     const [guessedLetters, setGuessedLetters] = React.useState([])
     // const [currentWord, setCurrentWord] = React.useState(() =>getRandomWord())
-    const [currentWord, setCurrentWord] = React.useState("react")
+    const [currentWord, setCurrentWord] = React.useState(getRandomWord())
     const [message, setMessage] = React.useState("")
     
     // Const values
