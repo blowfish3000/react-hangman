@@ -10,12 +10,18 @@ export default function AssemblyEndgame() {
 
     // State values
     const [guessedLetters, setGuessedLetters] = React.useState([])
-    // const [currentWord, setCurrentWord] = React.useState(() =>getRandomWord())
-    const [currentWord, setCurrentWord] = React.useState(getRandomWord())
     const [message, setMessage] = React.useState("")
+    const [language, setLanguage] = React.useState("en")
+    const [currentWord, setCurrentWord] = React.useState(getRandomWord("en"))
+
+    React.useEffect(() => {
+        setCurrentWord(getRandomWord(language))
+        setGuessedLetters([])
+        setMessage("")
+    }, [language])
     
     // Const values
-    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    const alphabet = language == "en"? "abcdefghijklmnopqrstuvwxyz" : "abcdefghijklmnopqrstuvwxyzàâæçéèêëîïôœùûüÿ"
 
     // derived Values
     let wrongGuessCount = 
@@ -115,10 +121,18 @@ export default function AssemblyEndgame() {
     }
     , [wrongGuessCount])
 
-    function newGame() {
-        setCurrentWord(getRandomWord)
+    function newGame(language) {
+        console.log("current language" + language)
+        setCurrentWord(getRandomWord(language))
         setGuessedLetters([])
         setMessage("")
+    }
+
+    const changeLanguage = (e) => {
+        const newLang = e.target.value
+        console.log("changeLanguage:" +newLang)
+        setLanguage(newLang)
+        
     }
     
 
@@ -142,8 +156,27 @@ export default function AssemblyEndgame() {
             <section className="keyboard">
                 {keyboardButtons}
             </section>
-            {isGameOver && <button onClick={() => newGame()} className="new-game">New Game</button>}
+            <section className="language">
+                <label className="language-lbl">
+                    <input 
+                        name="language" 
+                        type="radio" 
+                        value="en"
+                        onChange={(e) => (changeLanguage(e))} />
+                English</label>
+                
+                <label className="language-lbl">
+                <input 
+                    name="language" 
+                    type="radio" 
+                    value="fr"
+                    onChange = {(e) => (changeLanguage(e))} />
+                French</label>
+                
+            </section>
+            {isGameOver && <button onClick={() => newGame(language)} className="new-game">New Game</button>}
             {isGameWon && <Confetti recycle={false} numberOfPieces={1000}/>}
         </main>
     )
 }
+

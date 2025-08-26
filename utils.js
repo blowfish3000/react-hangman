@@ -1,8 +1,20 @@
-import {words} from "./words.js"
+import {english} from "./english.js"
+import {french} from "./french.js"
 
 
 
-export function getRandomWord(){
+
+export function getRandomWord(language){
+    console.log("entered get random word with language:" + language)
+    let words = []
+    if (language==="fr"){
+        words = french
+        console.log("loading french")
+    }
+    else if (language === "en"){
+        words= english
+        console.log("loading english")
+    }
     
     let randomIndex = Math.floor(Math.random() * words.length)
     return (words[randomIndex])

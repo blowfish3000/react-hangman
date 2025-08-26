@@ -180,3 +180,17 @@ section.keyboard > button.red{
 section.keyboard > button.green{
     background-color: #10A95B;
 }
+
+.language{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:5px;
+}
+
+.language-lbl{
+    display:flex;
+    align-items: center;
+    gap: 5px;
+}
+
